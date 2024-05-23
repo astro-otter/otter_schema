@@ -590,11 +590,11 @@ A measured magnitude is the most common element in the database, these can have 
     \item \keyword{observer} : Person or group that observed the data.
     \item \keyword{reducer} : Person who reduced the data.
     \item \keyword{pipeline} : Pipeline used to reduce the data.
-    \item \keyword{corr\_k} : Boolean. Is the raw value k-corrected?
-    \item \keyword{corr\_s} : Boolean. Is the raw value s-corrected?
-    \item \keyword{corr\_av} : Boolean. Is the raw value Milky Way extinction corrected?
-    \item \keyword{corr\_host} : Boolean. Is the raw value host subtracted?
-    \item \keyword{corr\_hostav} : Boolean. Is the raw value corrected for intrinsic host extinction?
+    \item \keyword{corr\_k} : Boolean. Is the raw value k-corrected? Can be None which means that we are uncertain if it is k-corrected.
+    \item \keyword{corr\_s} : Boolean. Is the raw value s-corrected? Can be None which means that we are uncertain if it is s-corrected.
+    \item \keyword{corr\_av} : Boolean. Is the raw value Milky Way extinction corrected? Can be None which means that we are uncertain if it is av-corrected.
+    \item \keyword{corr\_host} : Boolean. Is the raw value host subtracted? Can be None which means that we are uncertain if it is host subtracted.
+    \item \keyword{corr\_hostav} : Boolean. Is the raw value corrected for intrinsic host extinction?  Can be None which means that we are uncertain if it is host extinction corrected.
     \item \keyword{val\_k} : Float. Value of the k-correction applied to mag.
     \item \keyword{val\_s} : Float. Value of the s-corrected applied to mag.
     \item \keyword{val\_av} : Float. Value of the Milky Way extinction correction applied to mag.
@@ -602,7 +602,7 @@ A measured magnitude is the most common element in the database, these can have 
     \item \keyword{val\_hostav} : Float. Value of the intrinsic host extinction applied to mag.
 \end{itemize}
 
-\textbf{Save z_phase and t0_phase for a phase time}
+\textbf{Save z\_phase and t0\_phase for a phase time}
 
 Clearly most magnitude measurements will not have all of these parameters available, but the user has the option to include up to all of these, in addition to the filter-specific keywords listed in \S\ref{sec:filter_alias}. Although it is recommended to store the filter-specific keywords in the metadata to avoid repetition. The {\tt mag} and {\tt raw} keywords do not necessarily have to contain magnitudes, they can contain flux values. This is acceptable as long as it is specified in the units field.
 
