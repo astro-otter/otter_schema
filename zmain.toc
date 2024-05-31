@@ -1,0 +1,36 @@
+\tocdepth@munge 
+\tocdepth@restore 
+\contentsline {section}{\numberline {1}Schema}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Definitions}{2}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Best practices}{2}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Common Keywords}{2}{subsection.1.3}%
+\contentsline {subsubsection}{\numberline {1.3.1}\textcolor {magenta}{value}}{3}{subsubsection.1.3.1}%
+\contentsline {subsubsection}{\numberline {1.3.2}\textcolor {magenta}{reference}}{3}{subsubsection.1.3.2}%
+\contentsline {subsubsection}{\numberline {1.3.3}\textcolor {magenta}{units}}{3}{subsubsection.1.3.3}%
+\contentsline {subsubsection}{\numberline {1.3.4}\textcolor {magenta}{type}}{3}{subsubsection.1.3.4}%
+\contentsline {subsubsection}{\numberline {1.3.5}\textcolor {magenta}{flag}}{3}{subsubsection.1.3.5}%
+\contentsline {subsubsection}{\numberline {1.3.6}\textcolor {magenta}{computed}}{3}{subsubsection.1.3.6}%
+\contentsline {subsubsection}{\numberline {1.3.7}\textcolor {magenta}{uui}}{3}{subsubsection.1.3.7}%
+\contentsline {subsubsection}{\numberline {1.3.8}\textcolor {magenta}{default}}{3}{subsubsection.1.3.8}%
+\contentsline {subsubsection}{\numberline {1.3.9}\textcolor {magenta}{comment}}{4}{subsubsection.1.3.9}%
+\contentsline {subsection}{\numberline {1.4}Flags}{4}{subsection.1.4}%
+\contentsline {subsection}{\numberline {1.5}Required Keywords}{4}{subsection.1.5}%
+\contentsline {subsubsection}{\numberline {1.5.1}Objects}{4}{subsubsection.1.5.1}%
+\contentsline {subsubsection}{\numberline {1.5.2}Properties}{4}{subsubsection.1.5.2}%
+\contentsline {subsubsection}{\numberline {1.5.3}Measurements}{4}{subsubsection.1.5.3}%
+\contentsline {section}{\numberline {2}Properties}{4}{section.2}%
+\contentsline {subsection}{\numberline {2.1}\textcolor {cyan}{name}}{4}{subsection.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.1}\textcolor {magenta}{default\_name}}{5}{subsubsection.2.1.1}%
+\contentsline {subsubsection}{\numberline {2.1.2}\textcolor {olive}{alias}}{5}{subsubsection.2.1.2}%
+\contentsline {subsection}{\numberline {2.2}\textcolor {cyan}{coordinate}}{5}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}\textcolor {cyan}{distance}}{6}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}\textcolor {cyan}{date\_reference}}{7}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}\textcolor {cyan}{classification}}{8}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6}\textcolor {cyan}{photometry}}{9}{subsection.2.6}%
+\contentsline {subsection}{\numberline {2.7}\textcolor {cyan}{host}}{11}{subsection.2.7}%
+\contentsline {section}{\numberline {3}metadata}{11}{section.3}%
+\contentsline {subsection}{\numberline {3.1}\textcolor {cyan}{reference\_details}}{11}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}\textcolor {cyan}{filter\_alias}}{11}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}\textcolor {cyan}{schema\_version}}{12}{subsection.3.3}%
+\contentsline {section}{\numberline {4}Template JSON File}{12}{section.4}%
+\contentsline {section}{\numberline {5}Possibly Controversial Decisions / FAQ}{12}{section.5}%
