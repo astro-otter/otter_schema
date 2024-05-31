@@ -69,9 +69,17 @@ The data for each transient object will be stored in individual \json\ files wit
 
 \begin{itemize}
     \item \textbf{object}: each astronomical transient object (TDE, SN, FRB, etc.) is referred to as an ``object". The default will be the IAU name of the object, followed by the shortest name alias.
-    \item \textbf{\property{property}}: An overarching property of the object can be anything from ``photometry", a ``date", a ``classification", a ``host", etc. Can contain elements or subproperties. 
+    \item \textbf{category}: any information can go into one of five overarching categories in the schema.
+        \begin{enumerate}
+            \item parameter (\S\ref{sec:parameter}): contains any calculated or derived value from an observable or an explicitly assigned value (e.g., object name, explosion date, maximum brightness, redshift, etc.)
+            \item measurement (\S\ref{sec:measurement}): contains the properties directly measured by an observatory (e.g., photometry, spectra, neutrinos, X-ray, radio, polarimetry, etc.)
+            \item model (\S\ref{sec:model}): structured similar to a measurement, but derived from a theoretical model or simulation (e.g. {\tt MOSFiT} light curve, {\tt TARDIS} spectra, {\tt Prospector} SED, etc.)
+            \item environment (\S\ref{sec:environment}): contains any property related to the environment of the object (e.g. host galaxy parameters, progenitor information, environment metallicity, etc.).
+            \item metadata (\S\ref{sec:metadata}): contains ancillary properties of the database and other useful linked parameters (e.g., database version, aliases, definitions, references).
+        \end{enumerate}
+    \item \textbf{\property{property}}: any entry within a category, can be anything from ``photometry", a ``date", a ``classification", a ``host", etc. Can contain elements or subproperties. 
     \item \textbf{\subproperty{subproperty}}: any additional property within a property, useful when a large number of elements will share an additional keyword.
-    \item \textbf{\keyword{keyword}}: the name of an item within a category, property, subproperty, or element in the {\tt json} dictionary. These keywords are dependent on the \property{property} or \subproperty{subproperty} that they belong to. Some commonly used examples are:
+    \item \textbf{\element{element}}: The smallest element within a property or subproperty (e.g. flux measurement, redshift, RA, etc.). All elements are required to have a reference. Each element can contain a number of keywords:
     \begin{enumerate}
         \item value (\S\ref{subsec:value}): the value of the element (e.g. ``17.2" for a magnitude).
         \item reference (\S\ref{subsec:reference}): the origin of the element, such as a paper, broker, catalog, etc.
@@ -80,8 +88,12 @@ The data for each transient object will be stored in individual \json\ files wit
         \item flag (\S\ref{subsec:flag}): integer to reference known flags.
         \item computed (\S\ref{subsec:computed}): a Boolean that specifies whether the value of the element was computed by the database (True), as opposed to an external reference (False). If not present it is assumed to be False.
         \item uui (\S\ref{subsec:uui}): universally unique identifier (UUI) for the element to be referenced elsewhere.
+        \item association (\S\ref{subsec:association}): information to associate with a value in the metadata of the object.
+        \item quality (\S\ref{subsec:quality}): quality of the element, whether verified or not.
         \item default (\S\ref{subsec:default}): a Boolean used for when there are multiple entries of the element.
+        \item comment (\S\ref{subsec:comment}): a string with a comment.
     \end{enumerate}
+    \item \textbf{\keyword{keyword}}: the name of an item within a category, property, subproperty, or element in the {\tt json} dictionary.
 \end{itemize}
 
 \subsection{Best practices} \label{sec:practices}
@@ -96,7 +108,7 @@ The data for each transient object will be stored in individual \json\ files wit
     \item keywords formatted as Boolean will have {\tt null} for missing data.
 \end{itemize}
 
-\subsection{Common Keywords} \label{sec:elements}
+\subsection{Element Keywords} \label{sec:elements}
 
 Here we provide a more detailed description and how to handle each of the optional keywords in an element, introduced in \S\ref{sec:definitions}.
 
@@ -141,6 +153,10 @@ A Boolean that defines whether the value is original from a reference (False), o
 
 A universally unique identifier (UUI) used to cross-reference different elements with each other. These can be created with the {\tt uuid} Python package and look like this: {\tt c2ee78a2-acc0-4c01-b878-543130587e9a}.
 
+\subsubsection{\keyword{association}} \label{subsec:association}
+
+This keyword is used to cross-reference different elements with each other or with data in the metadata. This can be used to associate with a model observable stored in the model category, or shared definitions of a filter parameter stored in the metadata.
+
 %\subsubsection{\keyword{quality}} \label{subsec:quality}
 
 %Quality of the element, verified, not verified, almost verified?
@@ -171,38 +187,65 @@ This is a list of the required keywords for each type of data. Any other keyword
 \subsubsection{Objects} \label{subsec:object_requirements}
 At a minimum, each object is required to have the \keyword{name}, \keyword{coordinate}, and \keyword{reference\_alias} keywords. We require a reference for everything to ensure a high quality of data.
 
-\subsubsection{Properties} \label{subsec:param_requirements}
-The required values for all properties are:
+\subsubsection{Parameters} \label{subsec:param_requirements}
+The required keys for all parameters are:
 \begin{itemize}
-    \item \property{name}: Default name of the object. This is always required.
-    \item \property{coordinate}: \keyword{equitorial} is always required with a \keyword{reference}. \keyword{galactic} and \keyword{ecliptic} are optional but must contain a \keyword{reference}.
+    \item \keyword{name}: Default name of the object.
+    \item \property{coordinate}: At least one of \subproperty{equatorial}, \subproperty{galactic}, or \subproperty{ecliptic} each with \property{reference}
     \item \property{distance}: Nothing required, ideally \keyword{redshift} will be provided. If one is provided, a \keyword{reference} is required!
     \item \property{epoch}: Nothing required, will be derived from photometry if provided. If one is provided, a \keyword{reference} is required!
     \item \property{classification}: Nothing required, TNS will be queried. If provided, a \keyword{reference} is required!
 \end{itemize}
 
 \subsubsection{Measurements} \label{subsec:measurement_requirements}
-Each photometry point must have at least the following:
+Photometry must have at least the following:
 \begin{itemize}
     \item \keyword{reference}
-    \item \keyword{raw}
+    \item \keyword{system}
+
+    \item \keyword{magnitude}
+\end{itemize}
+
+The \subproperty{magnitude} subproperty of \property{photometry} must have the following keywords for each item:
+\begin{itemize}
+    \item \keyword{mag}
+    \item \keyword{date}
+    \item \keyword{date\_format}
     \item \keyword{filter}
-    \item \keyword{raw\_units}
+\end{itemize}
+
+Spectra must have the following keywords:
+\begin{itemize}
+    \item \keyword{reference}
+    \item \keyword{wavelength}
+    \item \keyword{wavelength\_units}
+    \item \keyword{flux}
+    \item \keyword{flux\_units}
+    \item \keyword{date}
+    \item \keyword{date\_format}
 \end{itemize}
 
 Additionally, if any corrections were applied the values \textit{must} be supplied as well! Similarly, if the magnitude is only an upper limit please set \texttt{upperlimit=True}.
 
 \textcolor{red}{FILL IN OTHER MEASUREMENTS LATER}
 
-\section{Properties} \label{sec:parameter}
+\subsubsection{Model}
+\textcolor{red}{FILL IN ONCE WE DECIDE MORE ABOUT MODELS}
 
-\subsection{\property{name}} \label{sec:name}
-The name information of the object. 
+\subsubsection{Environment}
+If host data is provided it must at least include the \keyword{host\_ra} and \keyword{host\_dec}. There are no requirements for the progenitor data, just provide what is available. The \property{reference} of the input values will be required though!
 
-\subsubsection{\keyword{default\_name}} \label{sec:default_name}
+\section{parameter} \label{sec:parameter}
+
+\subsection{\keyword{name}} \label{sec:name}
+
 The default name of the object. If available, this will be the IAU name without any prefixed (e.g. ``2019qiz"). If the object does not have an IAU name, the shortest alias will be adopted as the default name.
 
-\subsubsection{\subproperty{alias}} \label{sec:alias}
+\subsection{\keyword{main\_quality}} \label{sec:main_quality}
+
+The main quality of the object, derived from the individual qualities of elements.
+
+\subsection{\property{alias}} \label{sec:alias}
 
 All known names and aliases of the object are stored in this list, the default name will be selected from this list and stored in the \keyword{name} keyword.
 
@@ -349,6 +392,36 @@ Where the keys can be the following.
     \item \keyword{distance\_type}: The type of distance measure. Can be "redshift", "luminosity", "dispersion\_measure", etc.
 \end{itemize}
 
+% \subsubsection{\element{redshift}} \label{sec:redshift}
+% This can have the following keys.
+% \begin{itemize}
+%     \item \keyword{value}: The redshift value (float)
+%     \item \keyword{error}: The error on the redshift (float, optional)
+%     \item \keyword{default}: Use this as the default redshift value (boolean, optional)
+%     \item \keyword{reference}: The reference alias (integer)
+%     \item \keyword{computed}: True if the value was computed, False otherwise (boolean)
+% \end{itemize}
+
+% \subsubsection{\element{luminosity\_distance}} \label{sec:luminosity_distance}
+% This can have the following keys.
+% \begin{itemize}
+%     \item \keyword{value}: The luminosity distance (float)
+%     \item \keyword{unit}: The units on the luminosity distance (str, astropy units)
+%     \item \keyword{error}: The error on the luminosity distance (float, optional)
+%     \item \keyword{reference}: The reference alias (integer)
+%     \item \keyword{cosmology}: Which cosmology was used to calculate the distance (str).
+%     \item \keyword{computed}: True if the value was computed, False otherwise (boolean)
+% \end{itemize}
+
+% \subsubsection{\element{dispersion\_measure}} \label{sec:dispersion_measure}
+% This can have the following keys.
+% \begin{itemize}
+%     \item \keyword{value}: The dispersion measure (float)
+%     \item \keyword{error}: The error on the dispersion measurement (float, optional)
+%     \item \keyword{reference}: The reference alias (integer)
+%     \item \keyword{computed}: True if the value was computed, False otherwise (boolean)
+% \end{itemize}
+
 \subsection{\property{date\_reference}} \label{sec:date_reference}
 
 These are mostly computed, even if it is something very simple like ``first data point". But if it is an explosion time determined from a complex model in a paper, that is not computed and a reference can be added. If a value is computed, the reference should be a uuid pointing to another epoch that it was computed from. Example:
@@ -440,6 +513,8 @@ The elements in the classification property have no names, they are simply entri
 
 
 
+\section{measurement} \label{sec:measurement}
+
 Measurements are any values that were obtained from a real telescope, be that photometry, spectroscopy, polarization measurements, neutrinos, X-ray data, etc. There is no separate property for astrometry, as it is assumed any astrometric measurement will have an associated flux, and can added to the photometry property.
 
 \subsection{\property{photometry}} \label{sec:photometry}
@@ -484,6 +559,15 @@ A measured magnitude is the most common element in the database, these can have 
     \item \keyword{value} : flux with corrections applied, can be a magnitude, energy, counts or flux density. If counts provided, must provide \keyword{telescope\_area}.
     \item \keyword{value\_err}: error on the corrected flux value.
     \item \keyword{value\_units}: units of the corrected flux value, can be astropy units or magnitude system.
+    %\item \keyword{energy}: X-Ray measured energy with corrections applied.
+    %\item \keyword{energy\_units}: units on the x-ray measured energy.
+    %\item \keyword{energyerr}: err on the energy.
+    %\item \keyword{fluxdensity}: radio flux density.
+    %\item \keyword{fluxdensityerr}: err on the flux density.
+    %\item \keyword{fluxdensity\_units}: units on the flux density .
+    %\item \keyword{mag} : magnitude to use for computations, with corrections applied.
+    %\item \keyword{magerr} : error in mag magnitude.
+    %\item \keyword{mag\_system} : photometric system (e.g. Vega, AB).
     \item \keyword{epoch\_zeropoint} : if date is epoch, what is the offset.
     \item \keyword{epoch\_redshift} : if date is epoch, what is the redshift.
     \item \keyword{filter} : name of telescope filter.
@@ -524,6 +608,90 @@ Clearly most magnitude measurements will not have all of these parameters availa
 
 In the case of the magnitude element, the computed keyword does not apply. In this case {\tt raw} is always assumed to be not computed, and {\tt mag} is always assumed to be computed, where the computation can be as simple as applying a total correction of 0 mags.
 
+\subsection{\property{spectra}} \label{sec:spectra}
+
+\begin{itemize}
+    \item \keyword{wavelength} : 
+    \item \keyword{wavelength\_units} : 
+    \item \keyword{flux} : 
+    \item \keyword{fluxerr} : 
+    \item \keyword{raw} : 
+    \item \keyword{raw\_err} : 
+    \item \keyword{sky} : 
+    \item \keyword{lamp} : 
+    \item \keyword{flux\_units} : 
+    \item \keyword{telescope} : telescope that took the data.
+    \item \keyword{instrument} : instrument on telescope that took the data.
+    \item \keyword{date} : time of measurement.
+    \item \keyword{date\_format} : format on the of measurement (e.g. MJD, JD, etc).
+    \item \keyword{date\_err} : uncertainty in the date value.
+    \item \keyword{exptime} : Exposure time.
+    \item \keyword{slit} : 
+    \item \keyword{airmass} : 
+    \item \keyword{disperser} : 
+    \item \keyword{resolution} : 
+    \item \keyword{resolution\_units} : 
+    \item \keyword{min\_wave} : minimum useful wavelength
+    \item \keyword{max\_wave} : maximum useful wavelength
+    \item \keyword{filter} : name of telescope filter.
+    \item \keyword{filter\_key} : Name of filter in the format described in the metadata (\S\ref{sec:filter_alias})
+    \item \keyword{standard\_name} : Name of flux standard used to correct data.
+    \item \keyword{ignore} : was the data ignored.
+    \item \keyword{spec\_type} : is the spectra optimally extracted, boxfit, etc.
+    \item \keyword{aperture} : If aperture photometry, aperture diameter in arcseconds.
+    \item \keyword{observer} : Which person or group observed the data.
+    \item \keyword{reducer} : Person who reduced the data.
+    \item \keyword{pipeline} : Pipeline used to reduce the data.
+    \item \keyword{corr\_k} : Boolean. Is the raw value k-corrected?
+    \item \keyword{corr\_av} : Boolean. Is the raw value Milky Way extinction corrected?
+    \item \keyword{corr\_host} : Boolean. Is the raw value host subtracted?
+    \item \keyword{corr\_hostav} : Boolean. Is the raw value corrected for intrinsic host extinction?
+    \item \keyword{corr\_flux} : Boolean. Is the raw value calibrated to a flux standard?
+    \item \keyword{corr\_phot} : Boolean. Is the raw value calibrated to absolute photometry?
+    \item \keyword{val\_k} : Float. Value of the k-correction applied to mag.
+    \item \keyword{val\_av} : Float. Value of the Milky Way extinction correction applied to mag.
+    \item \keyword{val\_host} : Float. Value of the host contribution applied to mag.
+    \item \keyword{val\_hostav} : Float. Value of the intrinsic host extinction applied to mag.
+\end{itemize}
+
+%\subsection{\property{radio}} \label{sec:radio}
+
+%Kaaaaaaaaate, hi.
+
+%\subsection{\property{xray}} \label{sec:xray}
+
+\subsection{\property{polarimetry}} \label{sec:polarimetry}
+
+\subsection{\property{neutrino}} \label{sec:neutrino}
+
+\section{model} \label{sec:model}
+
+Similar schema to the measurements, but without telescope information.
+
+\subsection{\property{mod\_host}} \label{subsec:mod_host}
+
+Models of the host galaxy where a transient happened. Can have multiple host galaxies, and a default.
+
+\subsubsection{\subproperty{mod\_host\_image}} \label{subsec:mod_host_image}
+
+Galfit image of the host, and associated parameters.
+
+\subsubsection{\subproperty{mod\_host\_sed}} \label{subsec:mod_host_sed}
+
+Prospector SED of the host, and associated parameters.
+
+\subsection{\property{mod\_spectra}} \label{subsec:mod_spectra}
+
+TARDIS spectrum of transient.
+
+\subsection{\property{mod\_photometry}} \label{subsec:mod_photometry}
+
+{\tt MOSFiT} light curve model.
+
+\section{environment} \label{sec:environment}
+
+This category includes information not specifically about a specific object, but rather ancilliary information about its environment.
+
 \subsection{\property{host}} \label{sec:host}
 
 Information about the host galaxy where the object is located.
@@ -532,15 +700,22 @@ Information about the host galaxy where the object is located.
     \item \keyword{host\_dec}: the Declination of the host galaxy
     \item \keyword{host\_z}: Redshift of the host galaxy
     \item \keyword{host\_type}: The classification of the host (ex. spiral, elliptical, dwarf, AGN, etc.)
-    \item \keyword{host\_name}: The name of the host galaxy
-    \item \keyword{reference}: The reference for this host information
+\end{itemize}
+
+\subsection{\property{progenitor}} \label{sec:progenitor}
+
+Information about a progenitor star associated with the object.
+\begin{itemize}
+    \item \keyword{progenitor\_mass}: Mass of the progenitor star
+    \item \keyword{progenitor\_radius}: Radius of the progenitor
+    \item \keyword{progenitor\_type}: Classification of the progenitor (ex. RG, WD, MS, etc.)
 \end{itemize}
 
 \section{metadata} \label{sec:metadata}
 
 Metadata is information that does not necessarily fit into any of the existing categories, but is instead used to support the database structure. Some examples of metadata are listed in this section.
 
-\subsection{\property{reference\_details}} \label{sec:reference_details}
+\subsection{\element{reference\_details}} \label{sec:reference_details}
 
 We plan to store the 19 digit ADS bibcode for every reference for ease of analysis. This will store a mapping between those bibcodes and human readable names for easy visualization.
 
@@ -559,9 +734,9 @@ We plan to store the 19 digit ADS bibcode for every reference for ease of analys
 ]
 \end{lstlisting}
 
-The two keywords used in this element are \keyword{name} and \keyword{human\_readable\_name}, which store the name of the reference and the corresponding alias integer, respectively. 
+The three keywords used in this element are \keyword{name}, \keyword{human\_readable\_name}, and \keyword{alias}, which store the name of the reference and the corresponding alias integer, respectively. 
 
-\subsection{\property{filter\_alias}} \label{sec:filter_alias}
+\subsection{\element{filter\_alias}} \label{sec:filter_alias}
 
 The basic information about a filter can be stored in the metadata of the {\tt json} file for quick reference, without needing to add it to each individual photometry measurement.
 
@@ -599,16 +774,17 @@ Individual measurements can just reference the {\tt filter\_key} instead of stor
     \item \keyword{zp\_system}: system of zeropoint value (e.g. ``Vega").
 \end{itemize}
 
-\subsection{\property{schema\_version}} \label{sec:otter}
+\subsection{\element{otter}} \label{sec:otter}
 
 Version of the schema used.
 \begin{lstlisting}[
     style=json,
     label=lst:example-json]
+    "otter":{
 "schema_version": {
   "value": 1.0,
   "comment": "cite us please"
-}
+}}
 \end{lstlisting}
 
 \section{Template JSON File}
