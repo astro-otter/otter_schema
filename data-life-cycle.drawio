@@ -4,6 +4,14 @@
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="dEbb2yILkKgPImJzSV3p-67" value="" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="800" y="410" width="210" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="dEbb2yILkKgPImJzSV3p-64" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.429;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;shape=flexArrow;" edge="1" parent="1" source="dEbb2yILkKgPImJzSV3p-62" target="dEbb2yILkKgPImJzSV3p-16">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="910" y="570" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
         <mxCell id="dEbb2yILkKgPImJzSV3p-62" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=light-dark(#FFFFFF,#660066);" vertex="1" parent="1">
           <mxGeometry x="-590" y="610" width="1260" height="220" as="geometry" />
         </mxCell>
@@ -13,11 +21,11 @@
         <mxCell id="dEbb2yILkKgPImJzSV3p-17" value="" style="sketch=0;aspect=fixed;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;align=center;shape=mxgraph.mscae.enterprise.website_generic;fillColor=#7D7D7D;" vertex="1" parent="1">
           <mxGeometry x="-30" y="655" width="125" height="110" as="geometry" />
         </mxCell>
-        <mxCell id="dEbb2yILkKgPImJzSV3p-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="dEbb2yILkKgPImJzSV3p-21" target="dEbb2yILkKgPImJzSV3p-16">
+        <mxCell id="dEbb2yILkKgPImJzSV3p-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;shape=flexArrow;" edge="1" parent="1" source="dEbb2yILkKgPImJzSV3p-21" target="dEbb2yILkKgPImJzSV3p-16">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="dEbb2yILkKgPImJzSV3p-28" value="Periodic rebuilds&amp;nbsp; from .otter to ArangoDB" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;rotation=0;" vertex="1" parent="1">
-          <mxGeometry x="630" y="210" width="270" height="70" as="geometry" />
+        <mxCell id="dEbb2yILkKgPImJzSV3p-28" value="Periodic rebuilds&amp;nbsp; from .otter to ArangoDB" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;rotation=0;fillColor=light-dark(transparent,#000000);" vertex="1" parent="1">
+          <mxGeometry x="630" y="210" width="270" height="40" as="geometry" />
         </mxCell>
         <mxCell id="dEbb2yILkKgPImJzSV3p-33" value="Upload Data Page" style="html=1;whiteSpace=wrap;strokeColor=none;fillColor=#0079D6;labelPosition=center;verticalLabelPosition=middle;verticalAlign=top;align=center;fontSize=12;outlineConnect=0;spacingTop=-6;fontColor=#FFFFFF;sketch=0;shape=mxgraph.sitemap.page;" vertex="1" parent="1">
           <mxGeometry x="-280" y="670" width="140" height="80" as="geometry" />
@@ -175,6 +183,9 @@
         </mxCell>
         <mxCell id="dEbb2yILkKgPImJzSV3p-63" value="Web Application" style="text;strokeColor=none;fillColor=none;html=1;fontSize=24;fontStyle=1;verticalAlign=middle;align=center;" vertex="1" parent="1">
           <mxGeometry x="-17.5" y="775" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="dEbb2yILkKgPImJzSV3p-65" value="Queries and Displays Data From ArangoDB" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;rotation=0;fillColor=light-dark(transparent,#000000);" vertex="1" parent="1">
+          <mxGeometry x="680" y="725" width="270" height="40" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
