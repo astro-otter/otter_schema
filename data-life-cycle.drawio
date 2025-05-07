@@ -1116,12 +1116,6 @@
         <mxCell id="g3c6cCcgkKdmNArwKh1m-18" value="vetting" style="text;strokeColor=none;fillColor=none;html=1;fontSize=24;fontStyle=1;verticalAlign=middle;align=center;" vertex="1" parent="g3c6cCcgkKdmNArwKh1m-2">
           <mxGeometry x="718" y="303" width="122" height="38" as="geometry" />
         </mxCell>
-        <mxCell id="g3c6cCcgkKdmNArwKh1m-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=3;strokeColor=#00798C;" edge="1" parent="g3c6cCcgkKdmNArwKh1m-2" source="g3c6cCcgkKdmNArwKh1m-13" target="g3c6cCcgkKdmNArwKh1m-8">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="g3c6cCcgkKdmNArwKh1m-21" value="If Admin Approves Data" style="text;strokeColor=none;fillColor=none;html=1;fontSize=24;fontStyle=1;verticalAlign=middle;align=center;" vertex="1" parent="g3c6cCcgkKdmNArwKh1m-2">
-          <mxGeometry x="426" y="212" width="100" height="40" as="geometry" />
-        </mxCell>
         <mxCell id="g3c6cCcgkKdmNArwKh1m-22" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn0.iconfinder.com/data/icons/social-media-2104/24/social_media_social_media_logo_docker-128.png" vertex="1" parent="g3c6cCcgkKdmNArwKh1m-2">
           <mxGeometry x="135" y="4" width="73" height="73" as="geometry" />
         </mxCell>
@@ -1300,12 +1294,6 @@
         </mxCell>
         <mxCell id="cKlteX5REb8q5uAQtkjA-19" value="Persists w/" style="text;strokeColor=none;fillColor=none;html=1;fontSize=24;fontStyle=1;verticalAlign=middle;align=center;rotation=91;" vertex="1" parent="cKlteX5REb8q5uAQtkjA-2">
           <mxGeometry x="-46" y="406" width="100" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="cKlteX5REb8q5uAQtkjA-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=3;strokeColor=#00798C;" edge="1" parent="cKlteX5REb8q5uAQtkjA-2" source="cKlteX5REb8q5uAQtkjA-13" target="cKlteX5REb8q5uAQtkjA-8">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="cKlteX5REb8q5uAQtkjA-21" value="If Admin Approves Data" style="text;strokeColor=none;fillColor=none;html=1;fontSize=24;fontStyle=1;verticalAlign=middle;align=center;" vertex="1" parent="cKlteX5REb8q5uAQtkjA-2">
-          <mxGeometry x="426" y="212" width="100" height="40" as="geometry" />
         </mxCell>
         <mxCell id="cKlteX5REb8q5uAQtkjA-22" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn0.iconfinder.com/data/icons/social-media-2104/24/social_media_social_media_logo_docker-128.png" vertex="1" parent="cKlteX5REb8q5uAQtkjA-2">
           <mxGeometry x="135" y="4" width="73" height="73" as="geometry" />
